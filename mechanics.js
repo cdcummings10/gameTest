@@ -27,7 +27,7 @@ var enemy2 = new Enemy ( 170, 300, enemy2);
 
 function generateEnemies(e){
   e.preventDefault();
-  generateChar();
+  // generateChar();
   for (var i = 0; i < Enemy.enemyList.length; i++){
     Enemy.enemyList[i].createEnemy();
     var current = document.getElementById(Enemy.enemyList[i].label);
@@ -113,10 +113,28 @@ function updateScore(){
   location.textContent = 'Score: ' + score;
 }
 
+function frame(enemyPos){
+  var int = setInterval(frame, 5);
+  while (Math.abs(charPosition.x - enemyPos) > 5){
+    clearInterval(int);
+    console.log('ouch');
+    charPosition.x++;
+    charNew.style.left = charPosition.x + 'px';
+    if (charPosition.x - enemyPos !== -50){
+      charPosition - 45;
+      charNew.style.left = charPosition.x + 'px';
+    }
+  }
+}
+
 function defeatEnemy() {
   for (var i = 0; i < Enemy.enemyList.length; i++) {
-    if (charPosition.x - Enemy.enemyList[i].x === -50 && charPosition.y - Enemy.enemyList[i].y === 0){
+    if (charPosition.x - Enemy.enemyList[i].x === -50 && charPosition.y - Enemy.enemyList[i].y === 0  && document.getElementById(Enemy.enemyList[i].label) !== null){
       var enemy = document.getElementById(Enemy.enemyList[i].label);
+
+      //animation
+      // frame(Enemy.enemyList[i].x);
+      //removal
       enemy.remove();
       score++;
       updateScore();
