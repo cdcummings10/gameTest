@@ -29,3 +29,13 @@ h1 {
     top: 200px;
     width: 20px;
 }
+
+.enemy {
+    background-color: maroon;
+    border: solid 1px #101010;
+    height: 20px;
+    left: 270px;
+    position: absolute;
+    top: 400px;
+    width: 20px;
+}
