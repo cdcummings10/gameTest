@@ -62,6 +62,7 @@ var charNew = document.getElementById('character');
 
 function logKey(key) {
   switch (key.code) {
+  case 'KeyW':
   case 'ArrowUp':
     if (charPosition.y < 201){
       break;
@@ -72,6 +73,7 @@ function logKey(key) {
       charPosition.y = charUp;
       break;
     }
+  case 'KeyS':
   case 'ArrowDown':
     if (charPosition.y > 499){
       break;
@@ -82,6 +84,7 @@ function logKey(key) {
       charPosition.y = charDown;
       break;
     }
+  case 'KeyA':
   case 'ArrowLeft':
     if (charPosition.x < 21){
       break;
@@ -92,6 +95,7 @@ function logKey(key) {
       charPosition.x = charLeft;
       break;
     }
+  case 'KeyD':
   case 'ArrowRight':
     if (charPosition.x > 319){
       break;
@@ -113,29 +117,30 @@ function updateScore(){
   location.textContent = 'Score: ' + score;
 }
 
-function frame(enemyPos){
-  var int = setInterval(frame, 5);
-  while (Math.abs(charPosition.x - enemyPos) > 5){
-    clearInterval(int);
-    console.log('ouch');
-    charPosition.x++;
-    charNew.style.left = charPosition.x + 'px';
-    if (charPosition.x - enemyPos !== -50){
-      charPosition - 45;
-      charNew.style.left = charPosition.x + 'px';
-    }
-  }
+function attackStart(){
+  setTimeout(function(){
+    // charNew.className = 'attacking';
+    charNew.style.left = charPosition.x + 50 + 'px';
+  }, 100);
+}
+
+function attackStop(){
+  setTimeout(function() {
+    charNew.style.left = charPosition.x - 50 + 'px';
+    // charNew.className = '';
+  }, 1000);
 }
 
 function defeatEnemy() {
   for (var i = 0; i < Enemy.enemyList.length; i++) {
-    if (charPosition.x - Enemy.enemyList[i].x === -50 && charPosition.y - Enemy.enemyList[i].y === 0  && document.getElementById(Enemy.enemyList[i].label) !== null){
+    if (charPosition.x - Enemy.enemyList[i].x === -50 && charPosition.y - Enemy.enemyList[i].y === 0 && document.getElementById(Enemy.enemyList[i].label) !== null){
       var enemy = document.getElementById(Enemy.enemyList[i].label);
 
-      //animation
-      // frame(Enemy.enemyList[i].x);
       //removal
       enemy.remove();
+      //animation
+      attackStart();
+      attackStop();
       score++;
       updateScore();
     }

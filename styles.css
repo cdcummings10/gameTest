@@ -28,6 +28,11 @@ h1 {
     position: absolute;
     top: 200px;
     width: 20px;
+    transition: 350ms all;
+}
+
+.attacking {
+    transition: 350ms all;
 }
 
 .enemy {
