@@ -22,8 +22,12 @@ Enemy.prototype.createEnemy = function(){
   location.appendChild(enemy);
 };
 
-var enemy1 = new Enemy ( 270, 400, enemy1);
-var enemy2 = new Enemy ( 170, 300, enemy2);
+Enemy.prototype.randomXGrid = function(randomGridNumber){
+
+};
+
+var enemy1 = new Enemy ( 270, 120, 'enemy1');
+var enemy2 = new Enemy ( 170, 220, 'enemy2');
 
 function generateEnemies(e){
   e.preventDefault();
@@ -36,6 +40,54 @@ function generateEnemies(e){
   }
 }
 
+//generate random number between 1 and 16
+function randomRowSelector(){
+  return(Math.floor(Math.random() * (4 - 1 + 1)) + 1);
+}
+
+function randomColumnSelector(){
+  return(Math.floor(Math.random() * (4 - 1 + 1)) + 1);
+}
+
+var grid = document.getElementById('battleGrid');
+var gridBlocks = [];
+function generateBattleSquare(){
+  var newBlock = document.createElement('div');
+  grid.appendChild(newBlock);
+  newBlock.className = 'battleSquare';
+  gridBlocks.push(newBlock);
+  newBlock.textContent = gridBlocks.length;
+}
+
+
+var gridForm = document.getElementById('grid_selector');
+gridForm.addEventListener('submit', renderBattleGrid);
+
+function renderBattleGrid(e){
+  e.preventDefault();
+  var choice = e.target.gridSize.value;
+  switch (choice) {
+  case '2x2':
+    console.log('help');
+    break;
+  default:
+    break;
+  }
+}
+
+function generateNumberOfGrids(x, y){
+  var totalSquares = x * y;
+  var grid = document.getElementById('battleGrid');
+  var columns = [];
+  for (var j = 0; j < x; j++){
+    columns.push(' 100px');
+  }
+  grid.style.gridTemplateColumns = columns.toString;
+  console.log(grid.style.gridTemplateColumns);
+  for (var i = 0; i < totalSquares; i++){
+    generateBattleSquare();
+  }
+}
 
 
 //character
@@ -55,7 +107,7 @@ function generateChar(){
 
 var charPosition = {
   x: 20,
-  y: 200,
+  y: 20,
 };
 
 var charNew = document.getElementById('character');
@@ -64,7 +116,7 @@ function logKey(key) {
   switch (key.code) {
   case 'KeyW':
   case 'ArrowUp':
-    if (charPosition.y < 201){
+    if (charPosition.y < 21){
       break;
     }
     else {
@@ -75,7 +127,7 @@ function logKey(key) {
     }
   case 'KeyS':
   case 'ArrowDown':
-    if (charPosition.y > 499){
+    if (charPosition.y > 319){
       break;
     }
     else {
@@ -139,14 +191,15 @@ function defeatEnemy() {
       //removal
       enemy.remove();
       //animation
-      attackStart();
-      attackStop();
+      // attackStart();
+      // attackStop();
       score++;
       updateScore();
     }
     console.log(score);
   }
 }
+
 
 document.addEventListener('keydown', logKey);
 document.addEventListener('keydown', defeatEnemy);
