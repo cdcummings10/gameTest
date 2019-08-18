@@ -75,15 +75,15 @@ function renderBattleGrid(e){
   }
 }
 
+var grid = document.getElementById('battleGrid');
 function generateNumberOfGrids(x, y){
   var totalSquares = x * y;
-  var grid = document.getElementById('battleGrid');
   var columns = [];
   for (var j = 0; j < x; j++){
     columns.push(' 100px');
   }
-  grid.style.gridTemplateColumns = columns.toString;
-  console.log(grid.style.gridTemplateColumns);
+  grid.style.gridTemplateColumns = columns.toString();
+  console.log(columns.toString());
   for (var i = 0; i < totalSquares; i++){
     generateBattleSquare();
   }
@@ -173,7 +173,7 @@ function attackStart(){
   setTimeout(function(){
     // charNew.className = 'attacking';
     charNew.style.left = charPosition.x + 50 + 'px';
-  }, 100);
+  }, 500);
 }
 
 function attackStop(){
