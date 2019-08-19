@@ -39,53 +39,75 @@ function generateEnemies(e){
     current.style.left = Enemy.enemyList[i].x + 'px';
   }
 }
+var rows = 4;
+var columns = 4;
 
-//generate random number between 1 and 16
+//generate random number between of rows and columns
 function randomRowSelector(){
-  return(Math.floor(Math.random() * (4 - 1 + 1)) + 1);
+  return(Math.floor(Math.random() * (rows - 1 + 1)) + 1);
 }
 
 function randomColumnSelector(){
-  return(Math.floor(Math.random() * (4 - 1 + 1)) + 1);
+  return(Math.floor(Math.random() * (columns - 1 + 1)) + 1);
 }
 
 var grid = document.getElementById('battleGrid');
 var gridBlocks = [];
-function generateBattleSquare(){
+function generateBattleSquare(numberOfSquares){
   var newBlock = document.createElement('div');
   grid.appendChild(newBlock);
   newBlock.className = 'battleSquare';
   gridBlocks.push(newBlock);
-  newBlock.textContent = gridBlocks.length;
+  newBlock.textContent = numberOfSquares;
 }
 
 
 var gridForm = document.getElementById('grid_selector');
 gridForm.addEventListener('submit', renderBattleGrid);
+var grid = document.getElementById('battleGrid');
 
 function renderBattleGrid(e){
   e.preventDefault();
+  while (grid.firstChild){
+    grid.removeChild(grid.firstChild); //source: https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
+  }
   var choice = e.target.gridSize.value;
   switch (choice) {
   case '2x2':
-    console.log('help');
+    generateNumberOfGrids(2, 2);
+    rows = 2;
+    columns = 2;
+    break;
+  case '4x4':
+    generateNumberOfGrids(4, 4);
+    rows = 4;
+    columns = 4;
+    break;
+  case '6x4':
+    generateNumberOfGrids(6, 4);
+    rows = 6;
+    columns = 4;
+    break;
+  case '8x5':
+    generateNumberOfGrids(8, 5);
+    rows = 8;
+    columns = 5;
     break;
   default:
     break;
   }
 }
 
-var grid = document.getElementById('battleGrid');
 function generateNumberOfGrids(x, y){
   var totalSquares = x * y;
   var columns = [];
   for (var j = 0; j < x; j++){
-    columns.push(' 100px');
+    columns.push('100px');
   }
-  grid.style.gridTemplateColumns = columns.toString();
+  grid.style.gridTemplateColumns = columns.join(' ');
   console.log(columns.toString());
   for (var i = 0; i < totalSquares; i++){
-    generateBattleSquare();
+    generateBattleSquare(i + 1);
   }
 }
 
@@ -102,7 +124,7 @@ function generateChar(){
   character.style.left = 20 + 'px';
   character.style.top = 200 + 'px';
   charPosition.x = 20;
-  charPosition.y = 200;
+  charPosition.y = 20;
 }
 
 var charPosition = {
@@ -127,7 +149,7 @@ function logKey(key) {
     }
   case 'KeyS':
   case 'ArrowDown':
-    if (charPosition.y > 319){
+    if (charPosition.y > ((columns - 1) * 100) + 19){
       break;
     }
     else {
@@ -149,7 +171,7 @@ function logKey(key) {
     }
   case 'KeyD':
   case 'ArrowRight':
-    if (charPosition.x > 319){
+    if (charPosition.x > ((rows - 1) * 100) + 19){
       break;
     }
     else {
@@ -173,14 +195,14 @@ function attackStart(){
   setTimeout(function(){
     // charNew.className = 'attacking';
     charNew.style.left = charPosition.x + 50 + 'px';
-  }, 500);
+  }, 200);
 }
 
 function attackStop(){
   setTimeout(function() {
-    charNew.style.left = charPosition.x - 50 + 'px';
+    charNew.style.left = charPosition.x + 'px';
     // charNew.className = '';
-  }, 1000);
+  }, 400);
 }
 
 function defeatEnemy() {
@@ -189,10 +211,10 @@ function defeatEnemy() {
       var enemy = document.getElementById(Enemy.enemyList[i].label);
 
       //removal
-      enemy.remove();
+      setTimeout(function() { enemy.remove();}, 300);
       //animation
-      // attackStart();
-      // attackStop();
+      attackStart();
+      attackStop();
       score++;
       updateScore();
     }
