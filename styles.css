@@ -28,10 +28,11 @@ h1 {
     border: solid 1px #101010;
     height: 20px;
     position: absolute;
-    left: 10px;
+    left: 20px;
     top: 20px;
     width: 20px;
     transition: 350ms all;
+    background-image:url("kyungrae20x20.png");
 }
 
 .attacking {
@@ -46,6 +47,7 @@ h1 {
     position: absolute;
     top: 120px;
     width: 20px;
+    background-image: url("darrik20x20.png");
 }
 
 main {

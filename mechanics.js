@@ -1,9 +1,5 @@
 'use strict';
 
-
-
-
-
 //enemies
 function Enemy ( x, y, label ) {
   this.x = x,
@@ -35,8 +31,12 @@ function generateEnemies(e){
   for (var i = 0; i < Enemy.enemyList.length; i++){
     Enemy.enemyList[i].createEnemy();
     var current = document.getElementById(Enemy.enemyList[i].label);
-    current.style.top = Enemy.enemyList[i].y + 'px';
-    current.style.left = Enemy.enemyList[i].x + 'px';
+    var currentY = ((randomColumnSelector() - 1) * 100) + 20;
+    current.style.top = currentY + 'px';
+    Enemy.enemyList[i].y = currentY;
+    var currentX = ((randomRowSelector() - 1) * 100) + 70;
+    Enemy.enemyList[i].x = currentX;
+    current.style.left = currentX + 'px';
   }
 }
 var rows = 4;
@@ -122,7 +122,7 @@ function generateChar(){
   spawn.appendChild(newChar);
   var character = document.getElementById('character');
   character.style.left = 20 + 'px';
-  character.style.top = 200 + 'px';
+  character.style.top = 20 + 'px';
   charPosition.x = 20;
   charPosition.y = 20;
 }
