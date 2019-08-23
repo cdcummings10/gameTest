@@ -209,9 +209,10 @@ function defeatEnemy() {
   for (var i = 0; i < Enemy.enemyList.length; i++) {
     if (charPosition.x - Enemy.enemyList[i].x === -50 && charPosition.y - Enemy.enemyList[i].y === 0 && document.getElementById(Enemy.enemyList[i].label) !== null){
       var enemy = document.getElementById(Enemy.enemyList[i].label);
-
+      setTimeout(function() {enemy.classList.toggle('defeated');}, 200);
+      setTimeout(function() {enemy.classList.toggle('dropped');}, 1200);
       //removal
-      setTimeout(function() { enemy.remove();}, 300);
+      setTimeout(function() { enemy.remove();}, 1500);
       //animation
       attackStart();
       attackStop();

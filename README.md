@@ -9,3 +9,7 @@ v2: fixed previous bug.
 v3: fixed bug where reset enemies would die when not in same block as enemies.
     Updated main to relative and character/enemy to absolute based on relative.
     created grid resize button and random functions but have not implemented any of them.
+
+v4: Added animations.
+    Added random spawning enemies for squares.
+    Added background pictures.
